@@ -1,0 +1,12 @@
+{
+    "save_workspace": "never",
+    "always_save_history": false,
+    "reuse_sessions_for_project_links": true,
+    "initial_working_directory": "~",
+    "editor_keybindings": "vim",
+    "posix_terminal_shell": "bash",
+    "editor_theme": "Dracula",
+    "server_editor_font_enabled": true,
+    "server_editor_font": "Menlo",
+    "show_hidden_files": true
+}

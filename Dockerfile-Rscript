@@ -1,0 +1,8 @@
+# docker build -t bryanwhiting/r_env:rscript -f Dockerfile-Rscript .
+# Benefits of one R script: one cache
+# Detriments of one R script: add one package and re-build the entire thing
+FROM rocker/ml:latest
+
+# Kaggle/docker-rstats: https://github.com/Kaggle/docker-rstats/blob/main/Dockerfile
+ADD renv.R /tmp/renv.R
+RUN Rscript --vanilla /tmp/renv.R
