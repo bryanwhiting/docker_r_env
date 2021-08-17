@@ -62,10 +62,7 @@ is running, since those dot files are mounted elsewhere in the drive. Just edit 
 export DIR_CONFIGS=/Users/bryanwhiting/github/docker_r_env/configs
 docker run \
   -d \
-  -v $HOME/github/blogv2:/home/rstudio/blogv2 \
-  -v $HOME/github/docker_r_env:/home/rstudio/docker_r_env \
-  -v $HOME/gitlab/ldstxt:/home/rstudio/ldstxt \
-  -v $HOME/gitlab/ldstxt:/home/rstudio/ldstxt_gitlab \
+  -v $HOME/data:/home/rstudio/data \
   -v $DIR_CONFIGS/rstudio:/home/rstudio/.config/rstudio \
   -v $DIR_CONFIGS/.bashrc:/home/rstudio/.bashrc:Z \
   -v $DIR_CONFIGS/.profile:/home/rstudio/.profile:Z \
@@ -77,7 +74,7 @@ docker run \
   -e PASSWORD=mu \
   -e ROOT=true \
   -u root \
-  --name r_env \
+  --name renv \
   bryanwhiting/r_env:latest
 ```
 
@@ -107,11 +104,35 @@ Copy files out of docker (e.g., a `.dotfile`):
 docker cp r_env:/home/rstudio/.bashrc configs/.
 ```
 
+# Github Workflow
+
+## Authorize
+
+```
+gh auth login
+# ? What account do you want to log into? GitHub.com
+# ? What is your preferred protocol for Git operations? SSH
+# ? Generate a new SSH key to add to your GitHub account? Yes
+# ? Enter a passphrase for your new SSH key (Optional) ********
+# Tip: you can generate a Personal Access Token here https://github.com/settings/tokens
+# The minimum required scopes are 'repo', 'read:org', 'admin:public_key'.
+# ? Paste your authentication token: ****************************************
+```
+
+## New projects
+
+1. Make repo on gh, add R .gitignore
+1. gh repo clone bryanwhiting/xxxxxxx
+
+
 # Possible future enhancements
 
+- [x] Install gh, conda, ssh-keygen
 - [ ] Install Java for h2o.
-- [ ] When I restart the container, I get the weird message in the R Studio R Console.
 
+# Known issues
+- [ ] After doing a gh repo clone from zsh, I couldn't make new files in the repo. Presumably it's because my zsh `gh repo clone` command was called from sudo, but my R Studio is running as `rstudio`. Workaround: create the file outside of the folder and copy it in. Changes save thereafter.
+- [ ] When I restart the container, I get the weird message in the R Studio R Console.
 
 Errors:
 ```

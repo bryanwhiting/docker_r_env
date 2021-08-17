@@ -8,5 +8,6 @@
     "editor_theme": "Dracula",
     "server_editor_font_enabled": true,
     "server_editor_font": "Menlo",
-    "show_hidden_files": true
+    "show_hidden_files": true,
+    "document_author": "Bryan Whiting"
 }

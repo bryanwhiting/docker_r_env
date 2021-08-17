@@ -153,23 +153,24 @@ RUN R -e "tensorflow::install_tensorflow()"
 # Need to install conda
 # https://gist.github.com/pangyuteng/f5b00fe63ac31a27be00c56996197597
 # Install miniconda to /miniconda
-# RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-# RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda -b
-# RUN rm Miniconda3-latest-Linux-x86_64.sh
-# ENV PATH=/miniconda/bin:${PATH}
-# RUN conda update -y conda
+RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda -b
+RUN rm Miniconda3-latest-Linux-x86_64.sh
+ENV PATH=/miniconda/bin:${PATH}
+RUN conda update -y conda
 # https://github.com/quanteda/spacyr/issues/176
 # RUN R -e "spacyr:::install_miniconda()" 
 # RUN R -e "spacyr::spacy_install(conda='auto')" 
 
-# ZSH and other customs
+# Command line tools
+RUN conda install -y gh --channel conda-forge
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH
-RUN apt-get install -y vim
-RUN apt-get install -y zsh
+RUN apt-get install -y vim openssh-client zsh
 # Powerlevel10k: https://github.com/romkatv/powerlevel10k#manual
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k
 
-# zsh: https://github.com/deluan/zsh-in-docker
+RUN R -e "install.packages('easypackages', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+# zsh: https://github.com/deluan/zsh-indocker
 # RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
    #  -t https://github.com/denysdovhan/spaceship-prompt \
    #  -a 'SPACESHIP_PROMPT_ADD_NEWLINE="false"' \
@@ -184,7 +185,7 @@ RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/power
 # todo: shrink this down. This size is totally unnecesssary
 # cool, but not necessary
 # library(espnscrapeR)
-# TODO: instead of installing from ML, install from shiny.
+# TODO: instead of installing from ML, install from shiny? (if shiny server is needed)
 # TODO: install java for h2o
 # RUN R -e "install.packages('shiny', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 # already installed

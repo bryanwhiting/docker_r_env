@@ -1,13 +1,12 @@
-# The function will not be run in future, but you can run
-# it yourself as follows:
-#  autoload -Uz zsh-newuser-install
-#  zsh-newuser-install -f
-
+# Bryan's configs
 TZ=America/Los_Angeles
+export PATH=/miniconda/bin:${PATH}
 # PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%1~%f%b %# ' 
-PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%1 %~%f ' 
-PROMPT='%F{blue}[%D{%a} %D{%L:%M:%S}] '$PROMPT
+#PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%1 %~%f ' 
+#PROMPT='%F{blue}[%D{%a} %D{%L:%M:%S}] '$PROMPT
 # ZSH_THEME="spaceship"
+
+
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -35,3 +34,4 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
