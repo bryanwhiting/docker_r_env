@@ -124,15 +124,21 @@ gh auth login
 1. Make repo on gh, add R .gitignore
 1. gh repo clone bryanwhiting/xxxxxxx
 
+For a one-off page:
+1. Enable pages: https://github.com/bryanwhiting/emdat/settings/pages
+1. `Rscript -e "styler::style_file('index.Rmd'); rmarkdown::render('index.Rmd')"`
 
 # Possible future enhancements
 
 - [x] Install gh, conda, ssh-keygen
+- [ ] Install hugo.
 - [ ] Install Java for h2o.
 
 # Known issues
 - [ ] After doing a gh repo clone from zsh, I couldn't make new files in the repo. Presumably it's because my zsh `gh repo clone` command was called from sudo, but my R Studio is running as `rstudio`. Workaround: create the file outside of the folder and copy it in. Changes save thereafter.
-- [ ] When I restart the container, I get the weird message in the R Studio R Console.
+- [ ] Can't knit in folder (sudo): `Rscript -e "rmarkdown::render('test.Rmd')"`
+- [ ] Can use `gh browse` to open on the host machine. Workaround: it provides url that host machine can click.
+- [ ] When I restart the container, I get the weird message in the R Studio R Console. I think this is telling me that the Add-ins are breaking and not working. Workaround: Restart R session. Add-ins load.
 
 Errors:
 ```

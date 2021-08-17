@@ -170,6 +170,9 @@ RUN apt-get install -y vim openssh-client zsh
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k
 
 RUN R -e "install.packages('easypackages', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+# cmd +shift +p: style active file
+RUN R -e "install.packages('styler', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+
 # zsh: https://github.com/deluan/zsh-indocker
 # RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
    #  -t https://github.com/denysdovhan/spaceship-prompt \
@@ -179,7 +182,6 @@ RUN R -e "install.packages('easypackages', dependencies=TRUE, repos='http://cran
    #  -p ssh-agent \
    #  -p https://github.com/zsh-users/zsh-autosuggestions \
    #  -p https://github.com/zsh-users/zsh-completions
-
 
 ######### TODO:
 # todo: shrink this down. This size is totally unnecesssary

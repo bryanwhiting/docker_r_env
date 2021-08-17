@@ -9,5 +9,8 @@
     "server_editor_font_enabled": true,
     "server_editor_font": "Menlo",
     "show_hidden_files": true,
-    "document_author": "Bryan Whiting"
+    "document_author": "Bryan Whiting",
+    "rmd_chunk_output_inline": false,
+    "doc_outline_show": "sections_and_chunks",
+    "rmd_viewer_type": "pane"
 }
