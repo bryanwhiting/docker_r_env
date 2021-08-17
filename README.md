@@ -35,6 +35,12 @@ container.
  
 # Usage
 
+Pull the image using the tag:
+```
+docker pull bryanwhiting/r_env:<tagname>
+docker pull bryanwhiting/r_env:0.1
+```
+
 Run Docker.
 ```
 docker run \
@@ -85,12 +91,14 @@ Build docker image:
 docker build -t bryanwhiting/r_env:latest .
 ```
 
-Tag and push image to dockerhub:
+Tag and push image to dockerhub. First check the dockerhub [bryanwhiting/r_env](https://github.com/bryanwhiting/docker_r_env) for the latest and increment.
+
 ```
 docker image ls
 # Copy latest tag
-docker image tag 9771039e5975 bryanwhiting/r_env:0.1
-docker push bryanwhiting/r_env:0.1
+export tagname=0.2
+docker image tag 9771039e5975 bryanwhiting/r_env:${tagname}
+docker push bryanwhiting/r_env:${tagname}
 ```
  
 Copy files out of docker (e.g., a `.dotfile`):
@@ -102,3 +110,10 @@ docker cp r_env:/home/rstudio/.bashrc configs/.
 # Possible future enhancements
 
 - [ ] Install Java for h2o.
+- [ ] When I restart the container, I get the weird message in the R Studio R Console.
+
+
+Errors:
+```
+16 Aug 2021 22:30:56 [rsession-rstudio] ERROR r error 4 (R code execution error) [errormsg: ]; OCCURRED AT rstudio::core::Error rstudio::r::exec::executeSafely(rstudio_boost::function<void()>) src/cpp/r/RExec.cpp:239; LOGGED FROM: void rstudio::session::{anonymous}::processEvents() src/cpp/session/SessionHttpMethods.cpp:99
+```
