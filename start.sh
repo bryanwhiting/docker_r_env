@@ -16,8 +16,8 @@ docker run \
   -p 80:8787 \
   -e DISABLE_AUTH=true \
   -e PASSWORD=mu \
-  -e ROOT=true \
   -u root \
+  -e ROOT=TRUE \
   --name renv \
   bryanwhiting/r_env:latest
 

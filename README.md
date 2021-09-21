@@ -121,8 +121,21 @@ gh auth login
 
 ## New projects
 
+1. Enable git config
+```
+source docker_r_env/gitconfig
+```
+
 1. Make repo on gh, add R .gitignore
 1. gh repo clone bryanwhiting/xxxxxxx
+
+```
+export repo=generalconference
+gh repo clone bryanwhiting/${repo}
+find ${repo} -type f -exec chmod 777 {} \;
+chown rstudio ${repo} 
+chgrp rstudio ${repo}
+```
 
 For a one-off page:
 1. Enable pages: https://github.com/bryanwhiting/emdat/settings/pages
@@ -135,7 +148,7 @@ For a one-off page:
 - [ ] Install Java for h2o.
 
 # Known issues
-- [ ] After doing a gh repo clone from zsh, I couldn't make new files in the repo. Presumably it's because my zsh `gh repo clone` command was called from sudo, but my R Studio is running as `rstudio`. Workaround: create the file outside of the folder and copy it in. Changes save thereafter.
+- [ ] After doing a gh repo clone from zsh, I couldn't make new files in the repo. Presumably it's because my zsh `gh repo clone` command was called from sudo, but my R Studio is running as `rstudio`. Workaround: create the file outside of the folder and copy it in. Changes save thereafter. NOTE: need to chmod files if use sudo for gh clone. 
 - [ ] Can't knit in folder (sudo): `Rscript -e "rmarkdown::render('test.Rmd')"`
 - [ ] Can use `gh browse` to open on the host machine. Workaround: it provides url that host machine can click.
 - [ ] When I restart the container, I get the weird message in the R Studio R Console. I think this is telling me that the Add-ins are breaking and not working. Workaround: Restart R session. Add-ins load.

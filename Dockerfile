@@ -164,14 +164,52 @@ RUN conda update -y conda
 
 # Command line tools
 RUN conda install -y gh --channel conda-forge
+# RUN pip install glances # (like htop)
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH
-RUN apt-get install -y vim openssh-client zsh
+RUN apt-get install -y \
+   tree \
+   htop \
+   vim \
+   openssh-client \
+   zsh 
 # Powerlevel10k: https://github.com/romkatv/powerlevel10k#manual
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k
 
 RUN R -e "install.packages('easypackages', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 # cmd +shift +p: style active file
 RUN R -e "install.packages('styler', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages('pkgdown', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages('tictoc', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages('scriptuRs', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages('xaringan', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages('reactable', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN installGithub.r gadenbuie/xaringanExtra
+RUN installGithub.r bergant/airtabler
+# Enable saving of gt() objects as plots
+RUN R -e "webshot::install_phantomjs()"
+RUN R -e "install.packages('reactable', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+
+# R + VS Code
+RUN conda install -y radian --channel conda-forge
+RUN apt-get install -y tmux
+RUN R -e "install.packages('languageserver', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages('httpgd', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+ 
+
+
+
+# Install fonts
+# NOTE: I don't know how to install them using the font-manager cli, if there is one?
+# Install the fonts on linux:
+# sudo apt-get install -y ttf-mscorefonts-installer # manually run, needs to accept EULA
+# sudo fc-cache -vr; fc-list
+
+# Then https://stackoverflow.com/a/68642855
+# remotes::install_version("Rttf2pt1", version = "1.3.8")
+# extrafont::font_import(prompt=FALSE)"
+# ggplot on extrafont: https://isabella-b.com/blog/ib-r-package/
+
 
 # zsh: https://github.com/deluan/zsh-indocker
 # RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
@@ -195,3 +233,5 @@ RUN R -e "install.packages('styler', dependencies=TRUE, repos='http://cran.rstud
 # todo: install java for h2o
 # RUN R -e "install.packages('h2o', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 # RUN R -e "install.packages('mlr3', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+
+CMD ["/init"]

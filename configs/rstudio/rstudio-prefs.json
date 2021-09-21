@@ -12,5 +12,40 @@
     "document_author": "Bryan Whiting",
     "rmd_chunk_output_inline": false,
     "doc_outline_show": "sections_and_chunks",
-    "rmd_viewer_type": "pane"
+    "rmd_viewer_type": "pane",
+    "default_project_location": "~",
+    "jobs_tab_visibility": "shown",
+    "panes": {
+        "quadrants": [
+            "Source",
+            "Console",
+            "TabSet2",
+            "TabSet1"
+        ],
+        "tabSet1": [
+            "Files",
+            "Plots",
+            "Viewer",
+            "Presentation"
+        ],
+        "tabSet2": [
+            "Environment",
+            "History",
+            "Connections",
+            "Packages",
+            "Help",
+            "Build",
+            "VCS"
+        ],
+        "hiddenTabSet": [
+            "Tutorial"
+        ],
+        "console_left_on_top": false,
+        "console_right_on_top": true,
+        "additional_source_columns": 0
+    },
+    "source_with_echo": true,
+    "restore_source_documents": false,
+    "new_proj_git_init": true,
+    "graphics_backend": "ragg"
 }
