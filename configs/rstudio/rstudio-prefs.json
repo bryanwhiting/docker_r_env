@@ -46,6 +46,6 @@
     },
     "source_with_echo": true,
     "restore_source_documents": false,
-    "new_proj_git_init": true,
-    "graphics_backend": "ragg"
+    "graphics_backend": "ragg",
+    "save_files_before_build": true
 }

@@ -78,6 +78,21 @@ docker run \
   bryanwhiting/r_env:latest
 ```
 
+```
+# plumber port
+# rstudio port
+docker run -d \
+  --publish 8787:8787 \
+  --publish 8000:8000 \
+  --expose 8000 \
+  -e DISABLE_AUTH=true \
+  -e PASSWORD=mu \
+  -e ROOT=true \
+  -u root \
+  --name plumber \
+  bryanwhiting/r_env:latest
+```
+
 # Development
 
 > These steps must be done on your host machine, not within docker.

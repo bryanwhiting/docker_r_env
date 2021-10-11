@@ -195,8 +195,15 @@ RUN apt-get install -y tmux
 RUN R -e "install.packages('languageserver', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 RUN R -e "install.packages('httpgd', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 RUN curl -fsSL https://code-server.dev/install.sh | sh
- 
+RUN installGithub.r rstudio/fontawesome
+RUN R -e "install.packages('metathis', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+# re-install the latest version
+RUN installGithub.r rstudio/distill
+RUN R -e "install.packages('sf', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages('plumber', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
+# ipykernel:
+RUN python3 -m pip install -U ipykernel
 
 
 # Install fonts
