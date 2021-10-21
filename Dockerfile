@@ -203,7 +203,8 @@ RUN R -e "install.packages('sf', dependencies=TRUE, repos='http://cran.rstudio.c
 RUN R -e "install.packages('plumber', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
 # ipykernel:
-RUN python3 -m pip install -U ipykernel
+# RUN python3 -m pip install -U ipykernel
+RUN conda install -y ipykernel
 
 
 # Install fonts
@@ -240,5 +241,25 @@ RUN python3 -m pip install -U ipykernel
 # todo: install java for h2o
 # RUN R -e "install.packages('h2o', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 # RUN R -e "install.packages('mlr3', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+
+# install vscode and codercom
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+
+# JAVA: https://stackoverflow.com/a/44058196
+# Install OpenJDK-8
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y ant && \
+    apt-get clean;
+    
+# Fix certificate issues
+RUN apt-get update && \
+    apt-get install ca-certificates-java && \
+    apt-get clean && \
+    update-ca-certificates -f;
+
+# Setup JAVA_HOME -- useful for docker commandline
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN export JAVA_HOME
 
 CMD ["/init"]

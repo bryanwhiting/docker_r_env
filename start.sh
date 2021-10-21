@@ -2,11 +2,8 @@ export DIR_CONFIGS=/Users/bryanwhiting/github/docker_r_env/configs
 
 docker run \
   -d \
-  -v $HOME/github/blogv2:/home/rstudio/blogv2 \
   -v $HOME/github/docker_r_env:/home/rstudio/docker_r_env \
   -v $HOME/data:/home/rstudio/data \
-  -v $HOME/gitlab/ldstxt:/home/rstudio/ldstxt \
-  -v $HOME/gitlab/ldstxt:/home/rstudio/ldstxt_gitlab \
   -v $DIR_CONFIGS/rstudio:/home/rstudio/.config/rstudio \
   -v $DIR_CONFIGS/.bashrc:/home/rstudio/.bashrc:Z \
   -v $DIR_CONFIGS/.profile:/home/rstudio/.profile:Z \
