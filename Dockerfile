@@ -24,129 +24,173 @@ RUN apt-get update && apt-get install -y \
    r-cran-glmnet 
 
 # utils
-RUN R -e "install.packages('renv', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages(c(\
+  'easypackages', \
+  'pkgdown', \
+  'styler', \
+  'tictoc', \
+  'renv' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN installGithub.r bergant/airtabler
 
 # data processing
 # tidyverse, data.table already installed
 # RUN R -e "install.packages('tidyverse', dependencies=TRUE, repos='http://cran.rstudio.com/')"
-RUN R -e "install.packages('multidplyr', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c( \
+  'multidplyr', \
+  'sparklyr' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 # blogging
-RUN R -e "install.packages('distill', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('postcards', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('blogdown', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages(c( \
+  'blogdown', \
+  'metathis', \
+  'postcards', \
+  'xaringan' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 RUN installGithub.r r-lib/hugodown
+RUN installGithub.r gadenbuie/xaringanExtra
+RUN installGithub.r rstudio/fontawesome
+RUN installGithub.r rstudio/distill # bleeding edge
 
-# Table formatting
-RUN R -e "install.packages('gt', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('gtsummary', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('formattable', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('kableExtra', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('DT', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('skimr', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+# Tables
+RUN R -e "install.packages(c( \
+  'DT', \
+  'formattable', \ 
+  'gt', \
+  'gtsummary', \
+  'kableExtra', \
+  'reactable'  \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "webshot::install_phantomjs()"
 
-# data viz
-# RUN R -e "install.packages('shiny', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('ggthemes', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('ggalluvial', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('plotly', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('flexdashboard', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('survminer', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('ggsurvplot', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('gghighlight', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('dotwhisker', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('directlabels', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+# data viz, networks
+# igraph already installed
+RUN R -e "install.packages(c( \
+  'directlabels'\
+  'dotwhisker', \
+  'flexdashboard', \
+  'ggalluvial', \
+  'gghighlight', \
+  'ggraph', \
+  'ggsurvplot', \
+  'ggthemes', \
+  'networkD3', \
+  'plotly', \
+  'shiny', \
+  'skimr', \
+  'survminer', \
+  'vip' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
-# tidymodels
+# tidymodels (big install)
 RUN R -e "install.packages('tidymodels',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-RUN R -e "install.packages('finetune', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('stacks', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('vip', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('themis', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('infer', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('corrr', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('textrecipes', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('poissonreg', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('usemodels', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('tidypredict', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('butcher', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('lantern', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('applicable', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('baguette', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('discrim', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('rules', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('censored', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('plsmod', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('tidyposterior', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('embed', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('probably', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+
+# tidymodels appendages
+RUN R -e "install.packages(c(\
+  'applicable', \
+  'baguette', \
+  'butcher', \
+  'censored', \
+  'censored', \
+  'corrr', \
+  'discrim', \
+  'embed', \
+  'finetune', \
+  'infer', \
+  'lantern', \
+  'plsmod', \
+  'poissonreg', \
+  'probably', \
+  'rules', \
+  'stacks', \
+  'textrecipes', \
+  'themis', \
+  'tidyposterior', \
+  'tidypredict', \
+  'usemodels' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 RUN installGithub.r curso-r/treesnip
 
 # bayesian
-RUN R -e "install.packages('rstan', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('rstanarm', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('shinystan', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('bayestestR', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages(c( \
+  'bayestestR', \
+  'rstan', \
+  'rstanarm', \
+  'shinystan' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
 # time series
-RUN R -e "install.packages('modeltime', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('prophet', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('fable', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('feasts', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('tsibble', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('fasster', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages(c( \
+  'fable', \
+  'fasster', \
+  'feasts', \
+  'modeltime', \
+  'prophet', \
+  'tsibble' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
 # Model Interpretation
-RUN R -e "install.packages('margins', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages(c( \
+  'margins', \
+  'DALEXtra' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
 # Machine Learning
 # https://www.tidymodels.org/find/parsnip/
-# RUN R -e "install.packages('glmnet', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('xgboost', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('lightgbm', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('C50', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('earth', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('nnet', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('kknn', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('randomForest', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('ranger', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('rpart', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('survival', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('flexsurv', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('kernlab', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('xrf', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('Cubist', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('forecast', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+# glmnet, keras are pre-installed
+RUN R -e "install.packages(c( \
+  'C50', \
+  'Cubist', \
+  'earth', \
+  'flexsurv', \
+  'forecast', \
+  'kernlab', \
+  'kknn', \
+  'lightgbm', \
+  'nnet', \
+  'randomForest', \
+  'ranger', \
+  'rpart', \
+  'survival', \
+  'tensorflow', \
+  'xgboost', \
+  'xrf' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 RUN installGithub.r curso-r/treesnip
 RUN installGithub.r davpinto/fastknn
 RUN installGithub.r mukul13/rword2vec
 RUN R -e "devtools::install_url('https://github.com/catboost/catboost/releases/download/v0.26.1/catboost-R-Linux-0.26.1.tgz', INSTALL_opts = c(\"--no-multiarch\"))"
-RUN R -e "install.packages('tensorflow', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('spacyr', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-# keras is already installed
-# RUN R -e "install.packages('keras', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-# RUN R -e "keras::install_keras()" 
 
 # Text mining
 # wordcloud, SnowballC are already installed by the above packages
 # RUN R -e "install.packages('wordcloud', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 # RUN R -e "install.packages('SnowballC', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('tidytext', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('widyr', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('topicmodels', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('text2vec', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('quanteda', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+RUN R -e "install.packages(c( \
+  'quanteda', \
+  'spacyr', \
+  'text2vec', \
+  'tidytext', \
+  'topicmodels', \
+  'widyr' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
-# Network analysis
-# igraph already installed above
-# RUN R -e "install.packages('igraph', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('networkD3', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('ggraph', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+# Geo Spatial
+RUN R -e "install.packages(c( \
+  'ggmap', \
+  'leaflet', \
+  'sf' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
+# Gospel Analysis
+RUN R -e "install.packages('scriptuRs', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
+# APIs and model deployment
+RUN R -e "install.packages('plumber', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
 # Heavy ML packages
 # tensorflow is ~1Gb
+RUN R -e "keras::install_keras()" 
 RUN R -e "tensorflow::install_tensorflow()"  
 # Install spacy 
 # TODO(20210810): install via docker: https://github.com/quanteda/spacyr/issues/176
@@ -163,50 +207,53 @@ RUN conda update -y conda
 # RUN R -e "spacyr::spacy_install(conda='auto')" 
 
 # Command line tools
-RUN conda install -y gh --channel conda-forge
-# RUN pip install glances # (like htop)
+RUN conda install -y \
+  gh \
+  glances \
+  radian \ 
+  ipykernel \
+  --channel conda-forge
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH
 RUN apt-get install -y \
-   tree \
    htop \
-   vim \
    openssh-client \
+   tmux \
+   tree \
+   vim \
    zsh 
+RUN pip install glances 
 # Powerlevel10k: https://github.com/romkatv/powerlevel10k#manual
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k
 
-RUN R -e "install.packages('easypackages', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-# cmd +shift +p: style active file
-RUN R -e "install.packages('styler', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('pkgdown', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('tictoc', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('scriptuRs', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('xaringan', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('reactable', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN installGithub.r gadenbuie/xaringanExtra
-RUN installGithub.r bergant/airtabler
-# Enable saving of gt() objects as plots
-RUN R -e "webshot::install_phantomjs()"
-RUN R -e "install.packages('reactable', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-
-# R + VS Code
-RUN conda install -y radian --channel conda-forge
-RUN apt-get install -y tmux
-RUN R -e "install.packages('languageserver', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('httpgd', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
+# VSCODE
+# install vscode and codercom
+RUN R -e "install.packages(c( \
+  'httpgd', \
+  'languageserver' \
+  ), dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 RUN curl -fsSL https://code-server.dev/install.sh | sh
-RUN installGithub.r rstudio/fontawesome
-RUN R -e "install.packages('metathis', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-# re-install the latest version
-RUN installGithub.r rstudio/distill
-RUN R -e "install.packages('sf', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-RUN R -e "install.packages('plumber', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
 
-# ipykernel:
-# RUN python3 -m pip install -U ipykernel
-RUN conda install -y ipykernel
+# JAVA (for h2o + spark): https://stackoverflow.com/a/44058196
+# Install OpenJDK-8
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y ant && \
+    apt-get clean;
+# Fix certificate issues
+RUN apt-get update && \
+    apt-get install ca-certificates-java && \
+    apt-get clean && \
+    update-ca-certificates -f;
+# Setup JAVA_HOME -- useful for docker commandline
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN export JAVA_HOME
 
+CMD ["/init"]
 
+# TODO: expose ports for codercom
+# TODO: initialize codercom on startup
+
+##### MANUAL STEPS #####
 # Install fonts
 # NOTE: I don't know how to install them using the font-manager cli, if there is one?
 # Install the fonts on linux:
@@ -218,48 +265,5 @@ RUN conda install -y ipykernel
 # extrafont::font_import(prompt=FALSE)"
 # ggplot on extrafont: https://isabella-b.com/blog/ib-r-package/
 
-
-# zsh: https://github.com/deluan/zsh-indocker
-# RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
-   #  -t https://github.com/denysdovhan/spaceship-prompt \
-   #  -a 'SPACESHIP_PROMPT_ADD_NEWLINE="false"' \
-   #  -a 'SPACESHIP_PROMPT_SEPARATE_LINE="false"' \
-   #  -p git \
-   #  -p ssh-agent \
-   #  -p https://github.com/zsh-users/zsh-autosuggestions \
-   #  -p https://github.com/zsh-users/zsh-completions
-
-######### TODO:
-# todo: shrink this down. This size is totally unnecesssary
-# cool, but not necessary
-# library(espnscrapeR)
-# TODO: instead of installing from ML, install from shiny? (if shiny server is needed)
-# TODO: install java for h2o
-# RUN R -e "install.packages('shiny', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-# already installed
-# ml: already installed by above?
-# todo: install java for h2o
-# RUN R -e "install.packages('h2o', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-# RUN R -e "install.packages('mlr3', dependencies=TRUE, repos='http://cran.rstudio.com/')" 
-
-# install vscode and codercom
-RUN curl -fsSL https://code-server.dev/install.sh | sh
-
-# JAVA: https://stackoverflow.com/a/44058196
-# Install OpenJDK-8
-RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk && \
-    apt-get install -y ant && \
-    apt-get clean;
-    
-# Fix certificate issues
-RUN apt-get update && \
-    apt-get install ca-certificates-java && \
-    apt-get clean && \
-    update-ca-certificates -f;
-
-# Setup JAVA_HOME -- useful for docker commandline
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
-RUN export JAVA_HOME
-
-CMD ["/init"]
+# manually install spacyr (when needed)
+# RUN R -e "spacyr::spacy_install(conda='auto')" 

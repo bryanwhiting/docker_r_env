@@ -173,3 +173,16 @@ Errors:
 ```
 16 Aug 2021 22:30:56 [rsession-rstudio] ERROR r error 4 (R code execution error) [errormsg: ]; OCCURRED AT rstudio::core::Error rstudio::r::exec::executeSafely(rstudio_boost::function<void()>) src/cpp/r/RExec.cpp:239; LOGGED FROM: void rstudio::session::{anonymous}::processEvents() src/cpp/session/SessionHttpMethods.cpp:99
 ```
+
+
+# Docker layer limit
+
+Layer limit is 125 layers. You can check the layer limit using the following:
+
+```
+❯ docker history e7c59d56e4a1 | grep "RUN\|ADD\|COPY" | wc -l
+```
+
+since only RUN, ADD and COPY commands create layers (from what I read).
+
+To mitigate this issue, use multiple installs per layer (install multiple pacakges at once).
