@@ -67,7 +67,7 @@ RUN R -e "webshot::install_phantomjs()"
 # data viz, networks
 # igraph already installed
 RUN R -e "install.packages(c( \
-  'directlabels'\
+  'directlabels', \
   'dotwhisker', \
   'flexdashboard', \
   'ggalluvial', \

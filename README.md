@@ -107,11 +107,14 @@ Tag and push image to dockerhub. First check the dockerhub [bryanwhiting/r_env](
 
 ```
 docker image ls
-# Copy latest tag
+# Increment latest tag
 # https://hub.docker.com/r/bryanwhiting/r_env/tags
-export tagname=0.2
+export tagname=0.5
 docker image tag 9771039e5975 bryanwhiting/r_env:${tagname}
 docker push bryanwhiting/r_env:${tagname}
+# tag and release on github too
+git tag -a ${tagname} -m "docker r_env release ${tagname}"
+gh release create ${tagname} 
 ```
  
 Copy files out of docker (e.g., a `.dotfile`):
